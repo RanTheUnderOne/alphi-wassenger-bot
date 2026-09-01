@@ -36,6 +36,23 @@ If nothing changed — one line: אין עדכון, נסרקו N מספרים.
 
 After field approval — account: `FIREBERRY_CREATE_AN_ACCOUNT` / `FIREBERRY_UPDATE_ACCOUNT`. Contact: `firstname` required, plus `jobtitle`, `department`, `lastactiondate`, `description`, `accountid`. Do not invent email or company.
 
+## Lead name (from WhatsApp)
+
+The Fireberry **customer name** (`accountname`) and contact `firstname`/`lastname` must be the **person’s name from WhatsApp**, never a placeholder.
+
+Forbidden as the lead name: `New customer`, `ליד`, `ליד וואטסאפ`, `ליד חדש`, the raw phone, or any invented label.
+
+How to get the name (in order):
+
+1. Chat/contact name from Wassenger: `name`, `contact.name`, `contact.displayName` (`get_whatsapp_chats` with `includeContact: true`, or `get_whatsapp_chat_by_id`). Treat as missing if it is only digits, looks like a phone, or **equals the business owner’s name** (that is the phone book, not the lead).
+2. Search the chat: `get_whatsapp_chat_messages` `recent`. Use a name they said («קוראים לי…», «אני דני») **or** a name used in an outbound greeting («היי ליאל»).
+3. `search_whatsapp_chats_by_name` is only for finding a chat when you already have a name. Do not use it as the first step to *discover* a name.
+4. Still unknown: `ללא שם` + last 4 phone digits for uniqueness. Tell the manager the WhatsApp name is missing. Never write «ליד וואטסאפ».
+
+When CRM still has a placeholder and WhatsApp now has a real name — update `accountname` and the contact name in the same run (name fix, no «תכניס» wait).
+
+Use that WhatsApp name everywhere: manager report, notes, `accountname`, contact name.
+
 ## Notes on the account timeline
 
 Customer card tabs: הערה, משימה, לוג שיחה, קובץ, פגישה, WhatsApp. **This skill writes only הערה.** Do not create tasks, meetings, files, or WhatsApp-tab items.
@@ -85,7 +102,7 @@ Never `send_whatsapp_message` to a customer.
 
 ## Tools
 
-Wassenger: `get_whatsapp_devices`, `get_whatsapp_unread_chats`, `get_whatsapp_chats`, `get_whatsapp_chat_messages`.
+Wassenger: `get_whatsapp_devices`, `get_whatsapp_unread_chats`, `get_whatsapp_chats` (`includeContact: true`), `get_whatsapp_chat_by_id`, `get_whatsapp_chat_messages`.
 
 Fireberry: `FIREBERRY_GET_ALL_ACCOUNTS3`, `FIREBERRY_CREATE_AN_ACCOUNT`, `FIREBERRY_UPDATE_ACCOUNT`, `FIREBERRY_GET_ALL_CONTACTS`, `FIREBERRY_CREATE_A_NOTE` on account (`objecttypecode` 1), `FIREBERRY_QUERY_RECORDS` module `"1"` / `"2"`. Card fields after approval; notes on new events in the same run.
 

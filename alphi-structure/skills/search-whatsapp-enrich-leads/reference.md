@@ -16,7 +16,7 @@ Write `telephone1` as digits only.
 | Field | Use |
 |---|---|
 | `contactid` | Id for update |
-| `firstname` | Required, Hebrew |
+| `firstname` | Required: from WhatsApp name (not `ליד`) |
 | `lastname` | If a Hebrew family name exists |
 | `telephone1` | Match and write |
 | `mobilephone1` | Extra match |
@@ -34,7 +34,7 @@ Module `"1"`. View לידים חדשים = `statuscode` 6. לידים בתהלי
 
 | Field | Use |
 |---|---|
-| `accountname` | Required, Hebrew (name + phone if name is not unique) |
+| `accountname` | Required: WhatsApp contact/chat name. Never `ליד וואטסאפ` or `New customer`. |
 | `telephone1` | Digits only |
 | `statuscode` | 6 חדש / 9 בתהליך / 2 לקוח פעיל / 5 לקוח לא פעיל / 10 סגור - לא רלוונטי |
 | `originatingleadcode` | 8 ווטסאפ |
@@ -53,8 +53,10 @@ Each new event = a new record. No `parentnoteid` unless it is a reply to an exis
 
 ## Wassenger
 
-`get_whatsapp_devices`, `get_whatsapp_unread_chats`, `get_whatsapp_chats`, `get_whatsapp_chat_messages`, `manage_whatsapp_labels`.
+`get_whatsapp_devices`, `get_whatsapp_unread_chats`, `get_whatsapp_chats` (`includeContact: true`), `get_whatsapp_chat_by_id`, `get_whatsapp_chat_messages`.
 
 Always `device`. Never `sortBy` / `sortOrder`. Chat id: `9725…@c.us`. Messages: `flow` inbound/outbound.
+
+Lead display name: `contact.name` / chat `name`, else a name from message text. Digits-only or the owner’s name = not a lead name.
 
 Out of scope: campaigns, groups, sending to a customer.
