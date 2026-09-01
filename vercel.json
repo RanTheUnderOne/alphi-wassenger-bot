@@ -1,0 +1,5 @@
+{
+  "functions": {
+    "api/wassenger/webhook.ts": { "maxDuration": 30 }
+  }
+}

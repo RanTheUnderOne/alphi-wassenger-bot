@@ -1,0 +1,21 @@
+{
+  "name": "alphi-wassenger-bot",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "openai": "^6.16.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "@vercel/node": "^5.5.35",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.0"
+  }
+}
