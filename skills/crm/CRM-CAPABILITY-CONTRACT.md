@@ -38,8 +38,29 @@ Workflows must request capabilities by intent, never by provider-specific API na
 
 The active adapter is selected from tenant configuration (`crm.provider`). A workflow must not infer a provider from a tool name or hardcode account aliases.
 
-Current implementation: `crm-fireberry`.
-Planned adapters are added only when a real customer/use case requires them.
+Supported provider references: `crm-fireberry`, `crm-hubspot`,
+`crm-pipedrive`, `crm-monday`, and `crm-google-sheets`. A reference documents
+how to map capabilities after a tenant connects its provider; it does not mean
+that every tenant capability is enabled.
+
+## Provider capability matrix
+
+`verified` means the documented Composio toolkit exposes an operation for this
+capability. `configurable` means it works only after tenant-specific fields,
+boards, or worksheets are mapped. `discovery_required` means the provider's
+available tool and schema must be inspected for the connected tenant before
+the capability is offered.
+
+| Provider | Find | Pipeline | Create/update lead | Note | Task |
+|---|---|---|---|---|---|
+| Fireberry | verified | verified | verified | verified | verified |
+| HubSpot | verified | verified | verified | discovery_required | discovery_required |
+| Pipedrive | verified | verified | verified | verified | verified |
+| Monday | configurable | configurable | configurable | verified (`Update`) | configurable |
+| Google Sheets | configurable | configurable | configurable | configurable | configurable |
+
+The adapter must report `not_supported` or `discovery_required` instead of
+substituting a different mutation when a capability is unavailable.
 
 ## Approval policy
 
@@ -60,14 +81,20 @@ Adapters use these normalized error classes:
 - `rate_limited`
 - `provider_error`
 - `verification_failed`
+- `not_supported`
+- `discovery_required`
 
 The user-facing workflow explains the provider-neutral error and names the provider only when useful.
 
 ## See also
 
-- `crm-fireberry/SKILL.md`
-- `../SOUL.md`
-- `../cron/README.md`
+- `fireberry/SKILL.md`
+- `hubspot/SKILL.md`
+- `pipedrive/SKILL.md`
+- `monday/SKILL.md`
+- `google-sheets/SKILL.md`
+- `../../SOUL.md`
+- `../../cron/README.md`
 
 ---
 

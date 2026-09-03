@@ -1,0 +1,17 @@
+{
+  "name": "alphi-wassenger-bot",
+  "install": "npm ci",
+  "terminals": [
+    {
+      "name": "dev",
+      "command": "npm run dev",
+      "description": "Local dev server that mounts the Vercel webhook handler at POST http://localhost:3000/api/wassenger/webhook. Provide the required env vars (see .env.example) for full request processing."
+    }
+  ],
+  "ports": [
+    {
+      "name": "dev server",
+      "port": 3000
+    }
+  ]
+}

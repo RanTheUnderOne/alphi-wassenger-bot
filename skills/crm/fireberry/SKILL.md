@@ -31,13 +31,13 @@ Use when tenant configuration selects `crm.provider: fireberry`.
 
 | Contract capability | Fireberry implementation |
 |---|---|
-| `find_person` | Query Contacts module `"2"` by normalized phone/email |
-| `find_lead` | Query Customers/Accounts module `"1"` |
-| `get_pipeline` | Query Accounts with active statuses |
-| `create_lead` | Create Account, then linked Contact |
-| `update_lead` | Update Account/Contact fields after approval |
+| `find_person` | `FIREBERRY_QUERY_RECORDS` in Contacts module `"2"` by normalized phone/email |
+| `find_lead` | `FIREBERRY_QUERY_RECORDS` in Customers/Accounts module `"1"` |
+| `get_pipeline` | `FIREBERRY_QUERY_RECORDS` for Accounts with active statuses |
+| `create_lead` | `FIREBERRY_CREATE_AN_ACCOUNT`, then `FIREBERRY_CREATE_A_CONTACT` |
+| `update_lead` | `FIREBERRY_UPDATE_ACCOUNT` or `FIREBERRY_UPDATE_A_CONTACT` after approval |
 | `add_note` | `FIREBERRY_CREATE_A_NOTE` on Account, `objecttypecode: "1"` |
-| `create_task` | Fireberry task capability when available; otherwise report unavailable |
+| `create_task` | `FIREBERRY_CREATE_A_TASK` after approval |
 
 ## Fireberry rules
 
@@ -52,17 +52,23 @@ Use when tenant configuration selects `crm.provider: fireberry`.
 
 ## Procedure
 
-1. Resolve the active Fireberry connection and load Accounts/Contacts with pagination.
-2. Normalize the requested phone/email and search for candidate matches.
+1. Resolve the active Fireberry connection and inspect required picklists with
+   `FIREBERRY_GET_PICKLIST_VALUES` when a configured value is unknown.
+2. Normalize the requested phone/email and run a targeted
+   `FIREBERRY_QUERY_RECORDS`; do not load all Accounts or Contacts for a
+   single lookup.
 3. Return normalized candidates with matched fields and confidence.
 4. For an unambiguous read, return the normalized person/lead object.
 5. For a mutation, create a proposed action and wait for explicit approval.
 6. Execute the exact provider operation only after approval.
-7. Read back the target Account/Contact and report the verified result.
+7. Read back the target Account, Contact, Note, or Task and report the
+   verified result.
 
 ## Pitfalls
 
 - Do not duplicate an Account because phone and email arrived through different channels.
+- Paginate only pipeline and bulk-report reads. Bound every page scan and
+  report a partial result rather than silently stopping.
 - Do not assume a Fireberry field exists in another CRM.
 - Do not overwrite names, company, or stage from weak evidence.
 - Do not report a write as successful without a read-back.
