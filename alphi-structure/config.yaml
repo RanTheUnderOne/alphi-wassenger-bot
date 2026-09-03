@@ -1,0 +1,25 @@
+# Alfi Master Agent — Runtime Configuration
+#
+# This file defines the integrations (MCP servers) Alfi needs to operate as the
+# business's digital sales & lead operations employee. Secrets are NEVER written
+# here — they are injected as environment variables (see ENVIRONMENT.md).
+
+mcp_servers:
+
+  # ── WhatsApp Business ─────────────────────────────────────────────────
+  # Wassenger MCP (official WhatsApp Business API / WABA).
+  # Preferred transport: HTTP streaming — no local install, always current.
+  # Docs: https://github.com/wassengerhq/mcp-wassenger
+  wassenger:
+    url: "https://api.wassenger.com/mcp?key=${WASSENGER_API_KEY}"
+    enabled: true
+
+  # ── CRM + Email + 250+ apps (Fireberry, Gmail, …) ─────────────────────
+  # Managed Composio MCP, injected by the Agent37 platform at container boot.
+  # Uses the rotating per-instance token — always reference the env var, never
+  # bake the literal value (it rotates on every restart).
+  composio:
+    url: "${AGENT37_COMPOSIO_MCP_URL}"
+    headers:
+      Authorization: "Bearer ${AGENT37_MANAGED_TOKEN}"
+    enabled: true
