@@ -8,7 +8,7 @@ platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [sales, leads, follow-up, pipeline]
-    related_skills: []
+    related_skills: [lead-triage, crm-fireberry]
 ---
 
 # Follow-up Radar

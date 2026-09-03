@@ -1,15 +1,24 @@
 ---
 name: wassenger-labels
-description: Manage labels on Wassenger chats and contacts — create, edit, delete, color-code, apply in bulk, query chats by label, and report on label usage. Use when the user wants to tag conversations for organization, segmentation, or reporting — for example, mark VIP customers, flag bugs, classify lead stages, or group chats by topic. Includes the recommended naming convention (`namespace:value`) and anti-patterns to avoid label rot.
+description: Manage labels on business WhatsApp chats safely.
+version: 0.1.0
+author: Wassenger, adapted by Ran (RanTheUnderOne)
 license: MIT
+platforms: [linux, macos, windows]
 metadata:
-  author: Wassenger
-  version: "1.0.0"
-  category: capability
-  requires-mcp: "mcp-wassenger"
+  hermes:
+    tags: [whatsapp, labels, wassenger]
+    related_skills: [wassenger-mcp, wassenger-inbox]
 ---
 
 # Wassenger Labels
+
+## Alfi safety boundary
+
+Label creation, application, and removal are external mutations. Require owner
+approval before changing labels. If an MCP label operation uses
+`send_whatsapp_message`, use only `action: "agent"` and never include a
+customer-message field.
 
 Tag chats and contacts with the language your business actually uses — VIP, bug, interested-in-pricing, churn-risk, follow-up — then query, segment, and report on them.
 

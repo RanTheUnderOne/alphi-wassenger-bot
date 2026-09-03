@@ -1,6 +1,6 @@
 # Environment Variables — Alfi Master Agent
 
-Secrets live here (`.env` / platform env), never in `config.yaml`.
+Secrets live here (`.env` / platform env), never in `mcp.yaml`.
 Set these before starting Alfi.
 
 | Variable | Required | Purpose |

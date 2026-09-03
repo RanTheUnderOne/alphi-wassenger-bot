@@ -8,7 +8,7 @@ platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [crm, fireberry, composio, leads]
-    related_skills: []
+    related_skills: [lead-triage, source-whatsapp, source-gmail]
 ---
 
 # Fireberry CRM Adapter
@@ -24,6 +24,8 @@ Use when tenant configuration selects `crm.provider: fireberry`.
 - Active Fireberry connection through Composio.
 - The tenant's Fireberry account selected by configuration, never guessed from a hardcoded alias.
 - Read the Fireberry reference in `../CRM-CAPABILITY-CONTRACT.md` before any mutation.
+- Use `references/whatsapp-fields.md` or `references/gmail-fields.md` only
+  when translating an approved normalized source event into Fireberry fields.
 
 ## Normalized mapping
 

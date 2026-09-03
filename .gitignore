@@ -4,3 +4,4 @@ node_modules/
 .vercel/
 coverage/
 alphi-structure/skills/**/_run_*.json
+alphi-structure/skills/**/state/

@@ -1,15 +1,24 @@
 ---
 name: wassenger-inbox
-description: Manage chats in the Wassenger WhatsApp inbox — chat lifecycle (active/pending/resolved/archived), manual one-off assignment, internal notes for agent collaboration, archive and restore, bulk housekeeping, and workload reports. Use when the user wants to organize and triage chats. For label CRUD see wassenger-labels, for auto-assignment rules see wassenger-routing, for adding or removing agents see wassenger-team, for auto-replies see wassenger-auto-replies, for canned responses see wassenger-quick-replies.
+description: Manage business WhatsApp inbox operations safely.
+version: 0.1.0
+author: Wassenger, adapted by Ran (RanTheUnderOne)
 license: MIT
+platforms: [linux, macos, windows]
 metadata:
-  author: Wassenger
-  version: "1.0.0"
-  category: capability
-  requires-mcp: "mcp-wassenger"
+  hermes:
+    tags: [whatsapp, inbox, wassenger]
+    related_skills: [wassenger-mcp, wassenger-labels]
 ---
 
 # Wassenger Inbox
+
+## Alfi safety boundary
+
+Alfi does not send customer messages. `send_whatsapp_message` may be used only
+with `action: "agent"` for an approved inbox operation and without any
+customer-message field. Actions that send text, media, templates, polls, or
+scheduled messages require explicit owner approval for that chat.
 
 The day-to-day chat triage layer: read what's coming in, decide where it goes, mark what's done, archive what's old. The atomic features that compose with the inbox — labels, routing, team, auto-replies, quick replies — live in their own skills. Use those when the operation is specifically about that domain.
 

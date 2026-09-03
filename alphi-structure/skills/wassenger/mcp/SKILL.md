@@ -1,15 +1,23 @@
 ---
 name: wassenger-mcp
-description: Reference for the Wassenger Model Context Protocol (MCP) server, scoped to the official WhatsApp Business API (WABA). Use when the agent needs to choose which Wassenger tool to call, understand parameter shapes, or troubleshoot tool errors. Covers the WABA-supported tool modules — messaging, templates, chats, chat-messages, labels, contacts, team, departments, queue, campaigns, devices, files, numbers, ping. The detailed per-tool catalog lives in references/tools-reference.md and loads on demand.
+description: Reference Wassenger MCP tools for Alfi operations.
+version: 0.1.0
+author: Wassenger, adapted by Ran (RanTheUnderOne)
 license: MIT
+platforms: [linux, macos, windows]
 metadata:
-  author: Wassenger
-  version: "1.0.0"
-  category: setup
-  requires-mcp: "mcp-wassenger"
+  hermes:
+    tags: [whatsapp, mcp, wassenger]
+    related_skills: [wassenger-inbox, wassenger-labels]
 ---
 
 # Wassenger MCP
+
+## Alfi scope
+
+Use only read tools and approved `action: "agent"` inbox operations by default.
+Text, media, template, poll, campaign, and scheduled-message actions are
+customer communication and require explicit owner approval per recipient.
 
 The Wassenger MCP server (`mcp-wassenger`, repo: https://github.com/wassengerhq/mcp-wassenger) wraps the Wassenger REST API as a Model Context Protocol server so any compatible agent can manage WhatsApp by calling typed tools instead of issuing HTTP requests.
 

@@ -8,7 +8,7 @@ platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [voice, crm, tasks, sales]
-    related_skills: []
+    related_skills: [crm-fireberry]
 ---
 
 # Voice Note to Action
