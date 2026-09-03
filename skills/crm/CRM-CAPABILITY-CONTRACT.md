@@ -93,8 +93,8 @@ The user-facing workflow explains the provider-neutral error and names the provi
 - `pipedrive/SKILL.md`
 - `monday/SKILL.md`
 - `google-sheets/SKILL.md`
-- `../SOUL.md`
-- `../cron/README.md`
+- `../../SOUL.md`
+- `../../cron/README.md`
 
 ---
 

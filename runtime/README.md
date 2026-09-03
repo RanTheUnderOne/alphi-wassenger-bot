@@ -5,20 +5,20 @@ skills from a Git repository.
 
 ## Install the skill bundle
 
-Copy the contents of `alphi-structure/skills/` into the target Hermes skill
-root. Preserve category and skill directories:
+Copy the contents of `skills/` into the target Hermes skill root. Preserve
+category and skill directories:
 
 ```text
-alphi-structure/skills/sources/whatsapp/SKILL.md
+skills/sources/whatsapp/SKILL.md
 →
 <hermes-skill-root>/sources/whatsapp/SKILL.md
 ```
 
-Repeat for every directory beneath `alphi-structure/skills/`.
+Repeat for every directory beneath `skills/`.
 
-Alternatively, register `alphi-structure/skills/` as an external Hermes skill
-directory. The runtime configuration owns that registration; this repository
-does not assume a machine-specific path.
+Alternatively, register `skills/` as an external Hermes skill directory. The
+runtime configuration owns that registration; this repository does not assume
+a machine-specific path.
 
 ## Install identity and configuration
 
