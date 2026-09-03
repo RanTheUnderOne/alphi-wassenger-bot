@@ -31,6 +31,15 @@
 
 הגדרות מלאות: `config.yaml`. משתני הסביבה הנדרשים: `ENVIRONMENT.md`.
 
+### יכולות Master Agent (CRM-agnostic)
+
+| יכולת | תפקיד |
+|---|---|
+| `crm/CRM-CAPABILITY-CONTRACT.md` | חוזה אחיד לפעולות CRM, ללא תלות בספק. |
+| `crm/crm-fireberry` | Adapter שמתרגם את החוזה לפעולות Fireberry דרך Composio. |
+| `skills/follow-up-radar` | איתור לידים, הצעות מחיר ופגישות שנתקעו והצעת פעולת המשך. |
+| `skills/voice-note-to-action` | המרת הודעה קולית של בעל העסק לסיכום ופעולות CRM לאישור. |
+
 CRM: פיירברי דרך Composio (לקוחות = לידים במסך לקוחות; אנשי קשר מקושרים). וואטסאפ: Wassenger MCP. אימייל: Gmail דרך Composio.
 
 הפלט למנהל ול-CRM הוא בעברית.
