@@ -1,36 +1,59 @@
 # Runtime installation
 
-This repository is Alfi's source bundle. Hermes does not automatically load
-skills from a Git repository.
+This repository is Alfi's source bundle. Hermes does not automatically load skills from arbitrary Git repositories.
 
-## Install the skill bundle
+## Recommended Agent37 setup
 
-Copy the contents of `alphi-structure/skills/` into the target Hermes skill
-root. Preserve category and skill directories:
+1. Clone this repository into the persistent `/home/node` volume.
+2. Configure the Alfi Hermes profile's `skills.external_dirs` to point to:
 
 ```text
-alphi-structure/skills/sources/whatsapp/SKILL.md
-→
-<hermes-skill-root>/sources/whatsapp/SKILL.md
+/home/node/alphi-wassenger-bot/alphi-structure/skills
 ```
 
-Repeat for every directory beneath `alphi-structure/skills/`.
+3. Copy `alphi-structure/SOUL.md` to the target profile's `SOUL.md`.
+4. Translate `config/mcp.yaml` into the target Hermes profile's native MCP configuration; this file is the source specification, not a claim that Hermes auto-loads it.
+5. Add `WASSENGER_API_KEY` to the target profile's secret store. Agent37 supplies `AGENT37_MANAGED_TOKEN` and `AGENT37_COMPOSIO_MCP_URL` at runtime.
+6. Start a new Hermes session so the skill index is rebuilt.
 
-Alternatively, register `alphi-structure/skills/` as an external Hermes skill
-directory. The runtime configuration owns that registration; this repository
-does not assume a machine-specific path.
+## Skill loading contract
 
-## Install identity and configuration
+The external skill directory is the canonical runtime bridge. Hermes scans each immediate category directory and discovers nested skill directories containing `SKILL.md`. The active skill names are taken from frontmatter, not from folder names.
 
-- Copy `SOUL.md` to the target agent root.
-- Supply MCP configuration from `config/mcp.yaml` through the runtime's native
-  configuration mechanism.
-- Set the variables documented in `config/ENVIRONMENT.md` in the runtime
-  secret store. Never copy secret values into this repository.
+The bundle contains these active skills:
 
-## Verify after installation
+- `source-whatsapp`
+- `source-gmail`
+- `lead-triage`
+- `morning-review`
+- `follow-up-radar`
+- `voice-note-to-action`
+- `crm-fireberry`
+- `wassenger-inbox`
+- `wassenger-labels`
+- `wassenger-mcp`
 
-1. Start a new Hermes session so its skill index is rebuilt.
-2. Confirm every Alfi skill appears in `skills_list`.
-3. Confirm each skill can be opened through `skill_view` or its slash command.
-4. Run read-only source checks before enabling any CRM mutation policy.
+Customer-facing Wassenger recipes are intentionally stored under `references/customer-facing-wassenger/` and are not part of the active skill directory.
+
+## Configuration boundary
+
+- `SOUL.md`: identity, voice, and guardrails.
+- `config/mcp.yaml`: source specification for MCP servers.
+- `config/ENVIRONMENT.md`: required secret names and runtime variables.
+- `skills/`: agent-discoverable procedural skills.
+- `references/`: inactive supporting material unless explicitly promoted into a skill.
+- `cron/`: schedule documentation; live schedules are managed by Hermes Cron.
+
+## Agent37 persistence
+
+Only `/home/node` and `/home/linuxbrew` persist across restarts and image updates. `AGENT37_MANAGED_TOKEN` rotates; never copy its value into a persistent config. The post-restart hook may recreate runtime-only links or start services, but must reference environment variables rather than hardcoded tokens.
+
+## Verification (run later)
+
+1. Start a fresh Alfi session.
+2. Run `hermes skills list` with the Alfi profile.
+3. Confirm the ten local skills above are present and enabled.
+4. Load `/morning-review` and confirm the skill references resolve.
+5. Only then run read-only MCP checks. CRM mutations and customer messaging require explicit approval.
+
+Production tests are intentionally deferred until the architecture review is complete.

@@ -11,8 +11,10 @@ mcp_servers:
   # Preferred transport: HTTP streaming — no local install, always current.
   # Docs: https://github.com/wassengerhq/mcp-wassenger
   wassenger:
+    # The key is injected into the Alfi profile environment, never committed.
     url: "https://api.wassenger.com/mcp?key=${WASSENGER_API_KEY}"
     enabled: true
+    transport: http-streaming
 
   # ── CRM + Email + 250+ apps (Fireberry, Gmail, …) ─────────────────────
   # Managed Composio MCP, injected by the Agent37 platform at container boot.
